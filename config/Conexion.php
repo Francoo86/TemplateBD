@@ -1,13 +1,18 @@
 <?php
 
 class Conexion {
+    //HOST DONDE SE ENCUENTRA LA BASE DE DATOS
     private $host = 'localhost';
+    //LA BASE DE DATOS EN SI
     private $database = 'tienda_online';
+    //ESTOS DATOS SE LOS TIENEN QUE DAR DE MAGALLANES.
     private $username = 'root';
     private $password = 'root';
     private $connection;
     private static $instance = null;
     
+    //instancia unica para todo el programa, solo usaremos getInstance cada vez
+    //que queramos acceder a la base de datos.
     private function __construct() {
         $this->connect();
     }
@@ -21,6 +26,7 @@ class Conexion {
     
     private function connect() {
         try {
+            //AJUSTAR ESTE PDO A MAGALLANES (PGSQL)
             $dsn = "mysql:host={$this->host};dbname={$this->database};charset=utf8mb4";
             $options = [
                 PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
