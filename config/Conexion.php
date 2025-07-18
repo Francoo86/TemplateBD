@@ -2,12 +2,13 @@
 
 class Conexion {
     //HOST DONDE SE ENCUENTRA LA BASE DE DATOS
-    private $host = 'localhost';
+    private $host = 'magallanes.inf.unap.cl';
     //LA BASE DE DATOS EN SI
-    private $database = 'tienda_online';
+    private $database = 'SU_USUARIO';
     //ESTOS DATOS SE LOS TIENEN QUE DAR DE MAGALLANES.
-    private $username = 'root';
-    private $password = 'root';
+    private $username = 'SU_USUARIO';
+    private $password = 'CONTRASEÑA';
+    private $port = "5432"; // Puerto por defecto de PostgreSQL, ajustar si es necesario
     private $connection;
     private static $instance = null;
     
@@ -26,13 +27,17 @@ class Conexion {
     
     private function connect() {
         try {
-            //AJUSTAR ESTE PDO A MAGALLANES (PGSQL)
-            $dsn = "mysql:host={$this->host};dbname={$this->database};charset=utf8mb4";
+            //TODO:AJUSTAR ESTE PDO A MAGALLANES (PGSQL)
+            //$dsn = "mysql:host={$this->host};dbname={$this->database};charset=utf8mb4";
+            $dsn = "pgsql:host={$this->host};port={$this->port};dbname={$this->database};user={$this->username};password={$this->password}";
             $options = [
                 PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
                 PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
                 PDO::ATTR_EMULATE_PREPARES => false,
             ];
+
+            //DESCOMENTAR ESTA LINEA PARA VERIFICAR LA CONEXIÓN
+            //echo "Conectando a la base de datos {$this->database} en {$this->host}...\n";
             
             $this->connection = new PDO($dsn, $this->username, $this->password, $options);
             
